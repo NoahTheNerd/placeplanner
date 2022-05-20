@@ -42,16 +42,24 @@ var ctx = place.getContext('2d')
 ctx.fillStyle = '#ffffff'
 ctx.fillRect(0, 0, place.width, place.height)
 
-place.addEventListener('click', function(event){
+var ismousedown = 0;
+document.body.onmousedown = function() {
+    ++ismousedown;  
+}
+document.body.onmouseup = function() {
+    --ismousedown;  
+}
+document.body.onmousemove = function() {
+    if (!ismousedown) {return}
     var tx = event.pageX - place.offsetLeft + place.clientLeft
     var ty = event.pageY - place.offsetTop + place.clientTop
 
-    var x = Math.floor(tx/brushsize)
-    var y = Math.floor(ty/brushsize)
+    var x = Math.floor(tx/16)
+    var y = Math.floor(ty/16)
 
     ctx.fillStyle = colors.free[color]
-    ctx.fillRect(x*brushsize, y*brushsize, brushsize, brushsize)
-})
+    ctx.fillRect(x*16, y*16, 16, 16)
+}
 
 function resetplace() {
     ctx.fillStyle = '#fff'
