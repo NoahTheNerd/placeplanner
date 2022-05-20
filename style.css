@@ -85,7 +85,14 @@ button, input {
     background-color: rgba(0, 0, 0, 0.5);
 }
 
-
+.footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+    color: #777;
+}
 
 button:hover { transform: scale(1.05); }
 button:active { transform: scale(1.1); }
