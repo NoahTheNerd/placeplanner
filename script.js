@@ -40,13 +40,13 @@ ctx.fillStyle = '#ffffff'
 ctx.fillRect(0, 0, place.width, place.height)
 
 var ismousedown = 0;
-document.body.onmousedown(function() {
+document.body.onmousedown = function() {
     ++ismousedown;  
-})
-document.body.onmouesup(function() {
+}
+document.body.onmouesup = function() {
     --ismousedown;  
-})
-document.body.onmousemove(function() {
+}
+document.body.onmousemove = function() {
     var tx = event.pageX - place.offsetLeft + place.clientLeft
     var ty = event.pageY - place.offsetTop + place.clientTop
 
@@ -55,7 +55,7 @@ document.body.onmousemove(function() {
 
     ctx.fillStyle = colors.free[color]
     ctx.fillRect(x*16, y*16, 16, 16)
-})
+}
 
 function resetplace() {
     ctx.fillStyle = '#fff'
