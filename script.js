@@ -238,11 +238,15 @@ function exportplace(){
 }
 
 function pageUnload() {
-    //if (didthings) return "The data on this page will be lost if you leave";
+    if (didthings) return "The data on this page will be lost if you leave";
 }
 
 var serverid = document.getElementById("serverid")
+if (localStorage.getItem('serverid')) {
+    serverid.value = localStorage.getItem('serverid')
+}
 function loadimage() {
+    localStorage.setItem('serverid',serverid.value)
     if (serverid.value=="__proto__") {
         console.log('PRAY TO PROTO!')
         let protoPick = document.createElement("div")
