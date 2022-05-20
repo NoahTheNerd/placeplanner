@@ -199,8 +199,8 @@ function exportplace(){
     link.download = 'place.png';
     link.href = document.getElementById('place').toDataURL()
     link.click();
-  }
+}
 
-  function pageUnload() {
+function pageUnload() {
     if (didthings) return "The data on this page will be lost if you leave";
- }
+}
