@@ -18,7 +18,22 @@ let colors = {
         "white":"#ffffff",
     },
     "reward":{
-        "darkbrown":"6d001a"
+        "darkbrown":"#6d001a",
+        "darkred":"#be0039",
+        "rose":"#ff3881",
+        "seagreen":"#00cc78",
+        "darkteal":"#00756f",
+        "turqoise":"#009eaa",
+        "indigo":"#493ac1",
+        "periwinkle":"#6a5cff",
+        "darkgrey":"#515252",
+        "burgundy":"#6d001a",
+        "beige":"#ffb470",
+        "paleyellow":"#fff8b8",
+        "lightteal":"#00ccc0",
+        "lavender":"#94b3ff",
+        "palepurple":"#e4abff",
+        "fuschia":"#de107f",
     },
     "experimental":{
         "__proto__":"#000000"
@@ -26,9 +41,10 @@ let colors = {
 }
 
 let didthings = false
-let color = "black"
+let color = "free-black"
 let brushsize = 16
 let colorpickerdiv = document.getElementById("colpick")
+let colorpickerdiv2 = document.getElementById("colpick2")
 
 // Load the color picker!
 for (let i = 0; i < Object.keys(colors.free).length; i++) {
@@ -38,7 +54,16 @@ for (let i = 0; i < Object.keys(colors.free).length; i++) {
     colorEle.title = Object.keys(colors.free)[i].charAt(0).toUpperCase() + Object.keys(colors.free)[i].slice(1)
     colorEle.setAttribute('colorname', Object.keys(colors.free)[i])
     colorEle.style.backgroundColor = colors.free[Object.keys(colors.free)[i]]
-    colorEle.setAttribute('onclick', `color = '${colorEle.getAttribute('colorname')}';//place.style.outlineColor = '${colors.free[colorEle.getAttribute('colorname')]}'`)
+    colorEle.setAttribute('onclick', `color = 'free-${colorEle.getAttribute('colorname')}';//place.style.outlineColor = '${colors.free[colorEle.getAttribute('colorname')]}'`)
+}
+for (let i = 0; i < Object.keys(colors.reward).length; i++) {
+    let colorEle = document.createElement("div")
+    colorpickerdiv2.appendChild(colorEle)
+    colorEle.classList.add('col')
+    colorEle.title = Object.keys(colors.reward)[i].charAt(0).toUpperCase() + Object.keys(colors.reward)[i].slice(1)
+    colorEle.setAttribute('colorname', Object.keys(colors.reward)[i])
+    colorEle.style.backgroundColor = colors.reward[Object.keys(colors.reward)[i]]
+    colorEle.setAttribute('onclick', `color = 'reward-${colorEle.getAttribute('colorname')}';//place.style.outlineColor = '${colors.reward[colorEle.getAttribute('colorname')]}'`)
 }
 
 var place = document.getElementById('place')
@@ -81,7 +106,7 @@ document.body.onmousedown = function(e) {
     }
     if (found == 1) {return}
 
-    ctx.fillStyle = colors.free[color]
+    ctx.fillStyle = colors[color.split('-')[0]][color.split('-')[1]]
     ctx.fillRect(x*brushsize, y*brushsize, brushsize, brushsize)
 
     brush_tmphist.push({x:x, y:y, color:color, prevCol:prevCol})
@@ -118,7 +143,7 @@ document.body.onmousemove = function(e) {
     }
     if (found == 1) {return}
 
-    ctx.fillStyle = colors.free[color]
+    ctx.fillStyle = colors[color.split('-')[0]][color.split('-')[1]]
     ctx.fillRect(x*brushsize, y*brushsize, brushsize, brushsize)
 
     brush_tmphist.push({x:x, y:y, color:color, prevCol:prevCol})
@@ -150,7 +175,7 @@ document.body.onkeydown = function(e) {
         brush_history.push(last)
 
         for (let i = 0; i < last.length; i++) {
-            ctx.fillStyle = colors.free[last[i].color]
+            ctx.fillStyle = colors[last[i].color.split('-')[0]][last[i].color.split('-')[1]]
             ctx.fillRect(last[i].x*brushsize, last[i].y*brushsize, brushsize, brushsize)
         }
     }
