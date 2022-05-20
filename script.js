@@ -162,7 +162,10 @@ var sizes = [[512, 512],[1024, 512],[1024, 1024]]
 var currentsize = 1
 var title = document.getElementsByClassName('title')
 function cyclesize() {
-    if (!confirm("This action will reset your canvas and change your canvas size. Are you sure?")) return;
+    let newsize = sizes[(currentsize)%sizes.length]
+    newsize[0] /= 16
+    newsize[1] /= 16
+    if (!confirm(`Resize Canvas to: (${newsize[0]}x${newsize[1]}) This action will reset your canvas and change your canvas size. Are you sure?`)) return;
     didthings = false
     switch (currentsize) {
         case 1:
