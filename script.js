@@ -39,7 +39,14 @@ var ctx = place.getContext('2d')
 ctx.fillStyle = '#ffffff'
 ctx.fillRect(0, 0, place.width, place.height)
 
-place.addEventListener('click', function(event){
+var ismousedown = 0;
+document.body.onmousedown(function() {
+    ++ismousedown;  
+})
+document.body.onmouesup(function() {
+    --ismousedown;  
+})
+document.body.onmousemove(function() {
     var tx = event.pageX - place.offsetLeft + place.clientLeft
     var ty = event.pageY - place.offsetTop + place.clientTop
 
