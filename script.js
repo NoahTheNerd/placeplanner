@@ -43,7 +43,7 @@ var ismousedown = 0;
 document.body.onmousedown = function() {
     ++ismousedown;  
 }
-document.body.onmouesup = function() {
+document.body.onmouseup = function() {
     --ismousedown;  
 }
 document.body.onmousemove = function() {
