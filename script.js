@@ -186,3 +186,10 @@ function cyclesize() {
     ctx.fillStyle = '#fff'
     ctx.fillRect(0, 0, place.width, place.height)
 }
+
+function exportplace(){
+    var link = document.createElement('a');
+    link.download = 'place.png';
+    link.href = document.getElementById('place').toDataURL()
+    link.click();
+  }
