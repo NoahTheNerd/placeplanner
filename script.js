@@ -215,7 +215,7 @@ var serverid = document.getElementById("serverid")
 function loadimage() {
     if (overlay) {overlay.remove}
     var overlay = new Image()
-    overlay.crossOrigin = 'Anonymous'
+    overlay.crossOrigin = ''
     overlay.src = `https://robotop.xyz/place/${serverid.value}`
     overlay.onload = function(){
         ctx.drawImage(overlay, 0, 0, overlay.width*brushsize, overlay.height*brushsize)
