@@ -17,6 +17,9 @@ let colors = {
         "lightgrey":"#e4e4e4",
         "white":"#ffffff",
     },
+    "reward":{
+        "darkbrown":"6d001a"
+    },
     "experimental":{
         "__proto__":"#000000"
     }
@@ -32,6 +35,7 @@ for (let i = 0; i < Object.keys(colors.free).length; i++) {
     let colorEle = document.createElement("div")
     colorpickerdiv.appendChild(colorEle)
     colorEle.classList.add('col')
+    colorEle.title = Object.keys(colors.free)[i].charAt(0).toUpperCase() + Object.keys(colors.free)[i].slice(1)
     colorEle.setAttribute('colorname', Object.keys(colors.free)[i])
     colorEle.style.backgroundColor = colors.free[Object.keys(colors.free)[i]]
     colorEle.setAttribute('onclick', `color = '${colorEle.getAttribute('colorname')}';//place.style.outlineColor = '${colors.free[colorEle.getAttribute('colorname')]}'`)
