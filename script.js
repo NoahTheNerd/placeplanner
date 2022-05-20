@@ -22,6 +22,7 @@ let colors = {
     }
 }
 
+let didthings = false
 let color = "black"
 let brushsize = 16
 let colorpickerdiv = document.getElementById("colpick")
@@ -77,7 +78,7 @@ document.body.onmousedown = function(e) {
     ctx.fillRect(x*16, y*16, 16, 16)
 
     brush_tmphist.push({x:x, y:y, color:color, prevCol:prevCol})
-
+    didthings = true
 
 }
 document.body.onmouseup = function() {
@@ -114,6 +115,7 @@ document.body.onmousemove = function(e) {
     ctx.fillRect(x*16, y*16, 16, 16)
 
     brush_tmphist.push({x:x, y:y, color:color, prevCol:prevCol})
+    didthings = true
 }
 
 function rgbtohex(r, g, b) {
@@ -151,6 +153,7 @@ function resetplace() {
     if (!confirm("This action will reset your canvas. Are you sure?")) return
     ctx.fillStyle = '#fff'
     ctx.fillRect(0, 0, place.width, place.height)
+    didthings = false
 }
 
 
@@ -159,7 +162,8 @@ var sizes = [[512, 512],[1024, 512],[1024, 1024]]
 var currentsize = 1
 var title = document.getElementsByClassName('title')
 function cyclesize() {
-    if (!confirm("This action will reset your canvas and change your canvas size. Are you sure?")) return
+    if (!confirm("This action will reset your canvas and change your canvas size. Are you sure?")) return;
+    didthings = false
     switch (currentsize) {
         case 1:
             currentsize = 2
@@ -193,3 +197,7 @@ function exportplace(){
     link.href = document.getElementById('place').toDataURL()
     link.click();
   }
+
+  function pageUnload() {
+    if (didthings) return "The data on this page will be lost if you leave";
+ }
