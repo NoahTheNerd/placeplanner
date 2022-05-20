@@ -22,6 +22,7 @@ let colors = {
     }
 }
 
+let didthings = false
 let color = "black"
 let brushsize = 16
 let colorpickerdiv = document.getElementById("colpick")
@@ -56,11 +57,11 @@ document.body.onmousedown = function(e) {
     var tx = e.pageX - place.offsetLeft + place.clientLeft
     var ty = e.pageY - place.offsetTop + place.clientTop
 
-    var x = Math.floor(tx/16)
-    var y = Math.floor(ty/16)
+    var x = Math.floor(tx/brushsize)
+    var y = Math.floor(ty/brushsize)
 
     // get hex color
-    var prevCol = ctx.getImageData(x*16, y*16, 1, 1).data
+    var prevCol = ctx.getImageData(x*brushsize, y*brushsize, 1, 1).data
     var prevCol = [prevCol[0], prevCol[1], prevCol[2]]
 
     // check if the position is already in the tmp history
@@ -74,10 +75,10 @@ document.body.onmousedown = function(e) {
     if (found == 1) {return}
 
     ctx.fillStyle = colors.free[color]
-    ctx.fillRect(x*16, y*16, 16, 16)
+    ctx.fillRect(x*brushsize, y*brushsize, brushsize, brushsize)
 
     brush_tmphist.push({x:x, y:y, color:color, prevCol:prevCol})
-
+    didthings = true
 
 }
 document.body.onmouseup = function() {
@@ -93,11 +94,11 @@ document.body.onmousemove = function(e) {
     var tx = e.pageX - place.offsetLeft + place.clientLeft
     var ty = e.pageY - place.offsetTop + place.clientTop
 
-    var x = Math.floor(tx/16)
-    var y = Math.floor(ty/16)
+    var x = Math.floor(tx/brushsize)
+    var y = Math.floor(ty/brushsize)
 
     // get hex color
-    var prevCol = ctx.getImageData(x*16, y*16, 1, 1).data
+    var prevCol = ctx.getImageData(x*brushsize, y*brushsize, 1, 1).data
     var prevCol = [prevCol[0], prevCol[1], prevCol[2]]
 
     // check if the position is already in the tmp history
@@ -111,9 +112,10 @@ document.body.onmousemove = function(e) {
     if (found == 1) {return}
 
     ctx.fillStyle = colors.free[color]
-    ctx.fillRect(x*16, y*16, 16, 16)
+    ctx.fillRect(x*brushsize, y*brushsize, brushsize, brushsize)
 
     brush_tmphist.push({x:x, y:y, color:color, prevCol:prevCol})
+    didthings = true
 }
 
 function rgbtohex(r, g, b) {
@@ -132,7 +134,7 @@ document.body.onkeydown = function(e) {
 
         for (let i = 0; i < last.length; i++) {
             ctx.fillStyle = rgbtohex(last[i].prevCol[0], last[i].prevCol[1], last[i].prevCol[2])
-            ctx.fillRect(last[i].x*16, last[i].y*16, 16, 16)
+            ctx.fillRect(last[i].x*brushsize, last[i].y*brushsize, brushsize, brushsize)
         }
     } else {
         if (brush_future.length <= 0) {return}
@@ -142,7 +144,7 @@ document.body.onkeydown = function(e) {
 
         for (let i = 0; i < last.length; i++) {
             ctx.fillStyle = colors.free[last[i].color]
-            ctx.fillRect(last[i].x*16, last[i].y*16, 16, 16)
+            ctx.fillRect(last[i].x*brushsize, last[i].y*brushsize, brushsize, brushsize)
         }
     }
 }
@@ -151,6 +153,7 @@ function resetplace() {
     if (!confirm("This action will reset your canvas. Are you sure?")) return
     ctx.fillStyle = '#fff'
     ctx.fillRect(0, 0, place.width, place.height)
+    didthings = false
 }
 
 
@@ -159,7 +162,8 @@ var sizes = [[512, 512],[1024, 512],[1024, 1024]]
 var currentsize = 1
 var title = document.getElementsByClassName('title')
 function cyclesize() {
-    if (!confirm("This action will reset your canvas and change your canvas size. Are you sure?")) return
+    if (!confirm("This action will reset your canvas and change your canvas size. Are you sure?")) return;
+    didthings = false
     switch (currentsize) {
         case 1:
             currentsize = 2
@@ -193,3 +197,7 @@ function exportplace(){
     link.href = document.getElementById('place').toDataURL()
     link.click();
   }
+
+  function pageUnload() {
+    if (didthings) return "The data on this page will be lost if you leave";
+ }
