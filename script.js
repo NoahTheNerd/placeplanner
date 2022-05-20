@@ -39,6 +39,9 @@ for (let i = 0; i < Object.keys(colors.free).length; i++) {
 
 var place = document.getElementById('place')
 var ctx = place.getContext('2d')
+ctx.webkitImageSmoothingEnabled = false
+ctx.mozImageSmoothingEnabled = false
+ctx.imageSmoothingEnabled = false
 
 ctx.fillStyle = '#ffffff'
 ctx.fillRect(0, 0, place.width, place.height)
@@ -192,6 +195,9 @@ function cyclesize() {
     }
     ctx.fillStyle = '#fff'
     ctx.fillRect(0, 0, place.width, place.height)
+    ctx.webkitImageSmoothingEnabled = false
+    ctx.mozImageSmoothingEnabled = false
+    ctx.imageSmoothingEnabled = false
 }
 
 function exportplace(){
@@ -202,5 +208,16 @@ function exportplace(){
 }
 
 function pageUnload() {
-    if (didthings) return "The data on this page will be lost if you leave";
+    //if (didthings) return "The data on this page will be lost if you leave";
+}
+
+var serverid = document.getElementById("serverid")
+function loadimage() {
+    if (overlay) {overlay.remove}
+    var overlay = new Image()
+    overlay.crossOrigin = 'Anonymous'
+    overlay.src = `https://robotop.xyz/place/${serverid.value}`
+    overlay.onload = function(){
+        ctx.drawImage(overlay, 0, 0, overlay.width*brushsize, overlay.height*brushsize)
+    }
 }
