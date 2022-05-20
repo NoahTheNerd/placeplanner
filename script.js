@@ -57,11 +57,11 @@ document.body.onmousedown = function(e) {
     var tx = e.pageX - place.offsetLeft + place.clientLeft
     var ty = e.pageY - place.offsetTop + place.clientTop
 
-    var x = Math.floor(tx/16)
-    var y = Math.floor(ty/16)
+    var x = Math.floor(tx/brushsize)
+    var y = Math.floor(ty/brushsize)
 
     // get hex color
-    var prevCol = ctx.getImageData(x*16, y*16, 1, 1).data
+    var prevCol = ctx.getImageData(x*brushsize, y*brushsize, 1, 1).data
     var prevCol = [prevCol[0], prevCol[1], prevCol[2]]
 
     // check if the position is already in the tmp history
@@ -75,7 +75,7 @@ document.body.onmousedown = function(e) {
     if (found == 1) {return}
 
     ctx.fillStyle = colors.free[color]
-    ctx.fillRect(x*16, y*16, 16, 16)
+    ctx.fillRect(x*brushsize, y*brushsize, brushsize, brushsize)
 
     brush_tmphist.push({x:x, y:y, color:color, prevCol:prevCol})
     didthings = true
@@ -94,11 +94,11 @@ document.body.onmousemove = function(e) {
     var tx = e.pageX - place.offsetLeft + place.clientLeft
     var ty = e.pageY - place.offsetTop + place.clientTop
 
-    var x = Math.floor(tx/16)
-    var y = Math.floor(ty/16)
+    var x = Math.floor(tx/brushsize)
+    var y = Math.floor(ty/brushsize)
 
     // get hex color
-    var prevCol = ctx.getImageData(x*16, y*16, 1, 1).data
+    var prevCol = ctx.getImageData(x*brushsize, y*brushsize, 1, 1).data
     var prevCol = [prevCol[0], prevCol[1], prevCol[2]]
 
     // check if the position is already in the tmp history
@@ -112,7 +112,7 @@ document.body.onmousemove = function(e) {
     if (found == 1) {return}
 
     ctx.fillStyle = colors.free[color]
-    ctx.fillRect(x*16, y*16, 16, 16)
+    ctx.fillRect(x*brushsize, y*brushsize, brushsize, brushsize)
 
     brush_tmphist.push({x:x, y:y, color:color, prevCol:prevCol})
     didthings = true
@@ -134,7 +134,7 @@ document.body.onkeydown = function(e) {
 
         for (let i = 0; i < last.length; i++) {
             ctx.fillStyle = rgbtohex(last[i].prevCol[0], last[i].prevCol[1], last[i].prevCol[2])
-            ctx.fillRect(last[i].x*16, last[i].y*16, 16, 16)
+            ctx.fillRect(last[i].x*brushsize, last[i].y*brushsize, brushsize, brushsize)
         }
     } else {
         if (brush_future.length <= 0) {return}
@@ -144,7 +144,7 @@ document.body.onkeydown = function(e) {
 
         for (let i = 0; i < last.length; i++) {
             ctx.fillStyle = colors.free[last[i].color]
-            ctx.fillRect(last[i].x*16, last[i].y*16, 16, 16)
+            ctx.fillRect(last[i].x*brushsize, last[i].y*brushsize, brushsize, brushsize)
         }
     }
 }
