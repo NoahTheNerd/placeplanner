@@ -35,11 +35,12 @@ let colors = {
         "palepurple":"#e4abff",
         "fuschia":"#de107f",
     },
-    "experimental":{
-        "__proto__":"#000000"
+    "dev":{
+        "proto":"#000000"
     }
 }
 
+let maindiv = document.getElementById("maindiv")
 let didthings = false
 let color = "free-black"
 let brushsize = 16
@@ -242,6 +243,27 @@ function pageUnload() {
 
 var serverid = document.getElementById("serverid")
 function loadimage() {
+    if (serverid.value=="__proto__") {
+        console.log('PRAY TO PROTO!')
+        let protoPick = document.createElement("div")
+        maindiv.appendChild(protoPick)
+        protoPick.classList.add('picker')
+        protoPick.classList.add('proto')
+        protoPick.width = 256
+
+        for (let i = 0; i < Object.keys(colors.dev).length; i++) {
+            let colorEle = document.createElement("div")
+            protoPick.appendChild(colorEle)
+            colorEle.style.marginTop = '-15px'
+            colorEle.classList.add('col')
+            colorEle.classList.add('proto')
+            colorEle.title = Object.keys(colors.dev)[i].charAt(0).toUpperCase() + Object.keys(colors.dev)[i].slice(1)
+            colorEle.setAttribute('colorname', Object.keys(colors.dev)[i])
+            colorEle.style.backgroundColor = "#000000"
+            colorEle.setAttribute('onclick', `color = 'dev-${colorEle.getAttribute('colorname')}';//place.style.outlineColor = '${colors.dev[colorEle.getAttribute('colorname')]}'`)
+        }
+        return
+    }
     if (overlay) {overlay.remove}
     var overlay = new Image()
     overlay.crossOrigin = ''
