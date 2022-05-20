@@ -60,6 +60,7 @@ document.body.onmouseup = function() {
     brush_tmphist = []
     brush_future = []
 }
+
 document.body.onmousemove = function(e) {
     if (!ismousedown) {return}
     var tx = e.pageX - place.offsetLeft + place.clientLeft
@@ -120,6 +121,7 @@ document.body.onkeydown = function(e) {
 }
 
 function resetplace() {
+    if (!confirm("This action will reset your canvas. Are you sure?")) return
     ctx.fillStyle = '#fff'
     ctx.fillRect(0, 0, place.width, place.height)
 }
@@ -130,7 +132,7 @@ var sizes = [[512, 512],[1024, 512],[1024, 1024]]
 var currentsize = 1
 var title = document.getElementsByClassName('title')
 function cyclesize() {
-
+    if (!confirm("This action will reset your canvas and change your canvas size. Are you sure?")) return
     switch (currentsize) {
         case 1:
             currentsize = 2
