@@ -49,7 +49,7 @@ document.body.onmousedown = function() {
 document.body.onmouseup = function() {
     --ismousedown;  
 }
-document.body.onmousemove = function() {
+document.body.onmousemove = function(event) {
     if (!ismousedown) {return}
     var tx = event.pageX - place.offsetLeft + place.clientLeft
     var ty = event.pageY - place.offsetTop + place.clientTop
