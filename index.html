@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        <div class="popup" id="clearAll" style="display: none;">
+            <div class="popupbox">
+                <h1>Clear canvas?</h1>
+                <p class="popupdesc">Reset your canvas and start again!<span class="nomobile"><br>This cannot be undone.</span></p>
+                <div style="margin-top: 25px">
+                    <button onclick="$('.popup').hide()" style="width: 120px; font-weight: bold; background: var(--emojigreen)">Back</button>
+                    <button id="clearsounds" onclick="{ cancel(true); stopSounds(); $('#sequence').html(''); $('.popup').hide() }" style="width: 120px; font-weight: bold; background: var(--emojired)">Clear!</button>
+                </div>
+            </div>
+        </div>
+        <div style="text-align:center;">
+            <canvas id="place" width="512" height="512"></canvas>
+            
+            <div class="picker" id="colpick" width="256">
+                <button style="background-color: #DD2E44; height: 4vh; font-size: 13px" onclick="resetplace()">Reset</button>
+            </div>
+        </div>
+        <br>
+        <div style="width: 100%; text-align:center;">
+            <button style="background-color: #3B88C3; width: 35vh;">Change Size (32x32)</button>
+        </div>
+        
+    </body>
+    <script src="script.js"></script>
+</html>
