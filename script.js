@@ -16,10 +16,14 @@ let colors = {
         "gray":"#8e8e8e",
         "lightgrey":"#e4e4e4",
         "white":"#ffffff",
+    },
+    "experimental":{
+        "__proto__":"#000000"
     }
 }
 
 let color = "black"
+let brushsize = 16
 let colorpickerdiv = document.getElementById("colpick")
 
 // Load the color picker!
@@ -29,12 +33,11 @@ for (let i = 0; i < Object.keys(colors.free).length; i++) {
     colorEle.classList.add('col')
     colorEle.setAttribute('colorname', Object.keys(colors.free)[i])
     colorEle.style.backgroundColor = colors.free[Object.keys(colors.free)[i]]
-    colorEle.setAttribute('onclick', `color = '${colorEle.getAttribute('colorname')}'`)
+    colorEle.setAttribute('onclick', `color = '${colorEle.getAttribute('colorname')}';//place.style.outlineColor = '${colors.free[colorEle.getAttribute('colorname')]}'`)
 }
 
 var place = document.getElementById('place')
 var ctx = place.getContext('2d')
-
 
 ctx.fillStyle = '#ffffff'
 ctx.fillRect(0, 0, place.width, place.height)
@@ -117,6 +120,40 @@ document.body.onkeydown = function(e) {
 }
 
 function resetplace() {
+    ctx.fillStyle = '#fff'
+    ctx.fillRect(0, 0, place.width, place.height)
+}
+
+
+// Size cycling
+var sizes = [[512, 512],[1024, 512],[1024, 1024]]
+var currentsize = 1
+var title = document.getElementsByClassName('title')
+function cyclesize() {
+
+    switch (currentsize) {
+        case 1:
+            currentsize = 2
+            place.width = 512
+            place.height = 256
+            brushsize = 8
+            title.innerText = "Place Planner [64x32]"
+            break;
+        case 2:
+            currentsize = 3
+            place.width = 512
+            place.height = 512
+            brushsize = 8
+            title.innerText = "Place Planner [64x64]"
+            break;
+        case 3:
+            currentsize = 1
+            place.width = 512
+            place.height = 512
+            brushsize = 16
+            title.innerText = "Place Planner [32x32]"
+            break;
+    }
     ctx.fillStyle = '#fff'
     ctx.fillRect(0, 0, place.width, place.height)
 }

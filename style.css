@@ -6,8 +6,11 @@ body {
     margin-top: 20px;
     margin-bottom: 20px;
     width: 50%;
-    zoom: 100%
+    zoom: 100%;
+    font-family: sans-serif;
+    overflow: hidden;
 }
+
 a {
     color: aqua;
 }
@@ -31,6 +34,8 @@ canvas {
     flex: 1 1 0px;
     white-space: nowrap;
     border-radius: 3px;
+    transition-duration: 0.1s;
+    cursor: pointer;
 }
 button {
     width: 100px;
@@ -84,3 +89,5 @@ button, input {
 
 button:hover { transform: scale(1.05); }
 button:active { transform: scale(1.1); }
+.col:hover { transform: scale(1.05); }
+.col:active { transform: scale(1.1); }
